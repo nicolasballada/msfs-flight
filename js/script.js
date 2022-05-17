@@ -3,10 +3,10 @@ let vatMap = () => {
     window.open(url, '_blank');
   }
 
-  let simbrief = (url) => {
+  let simbrief = (locator) => {
     let url = `https://www.simbrief.com/`;
 
-    switch(url){
+    switch(locator){
       case 'new':
         url = `https://www.simbrief.com/system/dispatch.php?newflight=1`;
         break;
