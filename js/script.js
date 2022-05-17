@@ -133,6 +133,7 @@ let vatMap = () => {
         if (airNavList) {
           icaoList = expandList(airNavList);
           icaoList.forEach(icao => {
+            console.log(icao);
             airNav(icao);
           });
         } else {
