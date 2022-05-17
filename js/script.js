@@ -126,7 +126,7 @@ let vatMap = () => {
             datis(icao);
           });
         } else {
-          datiserr.innerHTML = `metar empty | ${metarList} | ${service}`;
+          datiserr.innerHTML = `datiserr empty | ${datiserr} | ${service}`;
         }
         break;
       case 'airnav':
