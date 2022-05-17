@@ -9,7 +9,6 @@ body {
 body {
   display: flex;
   flex-direction: column;
-  font-family: monospace;
 }
 
 .button {
@@ -61,7 +60,7 @@ body {
   align-content: space-between;
   vertical-align: middle;
   background-color: #00000000;
-  border: 1px ridge #000000;
+  border-bottom: 1px ridge #000000;
 }
 
 .OpenIn {
