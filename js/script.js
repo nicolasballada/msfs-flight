@@ -7,6 +7,11 @@ let vatMap = () => {
     let url = `https://www.simbrief.com/system/dispatch.php?newflight=1`;
     window.open(url, '_blank');
   }
+
+  let skyvector = () => {
+    let url = `https://skyvector.com/`;
+    window.open(url, '_blank');
+  }
   
   let radar = () => {
     let url = `https://www.aviationweather.gov/radar`;
