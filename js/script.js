@@ -8,7 +8,7 @@ let vatMap = () => {
     window.open(url, '_blank');
   }
 
-  let skyvector = () => {
+  let skyvect = () => {
     let url = `https://skyvector.com/`;
     window.open(url, '_blank');
   }
@@ -83,6 +83,7 @@ let vatMap = () => {
 
     airerr.innerHTML = '';
     skyerr.innerHTML = '';
+    meterr.innerHTML = '';
     metText.innerHTML = '';
     airText.innerHTML = '';
     skyText.innerHTML = '';
@@ -103,10 +104,7 @@ let vatMap = () => {
     let airerr = document.getElementById('airerr');
     let skyerr = document.getElementById('skyerr');
     let datiserr = document.getElementById('datiserr');
-    let metarList = document.getElementById('textInput').value || undefined;
-    let airNavList = document.getElementById('textInput').value || undefined;
-    let skyVectorList = document.getElementById('textInput').value || undefined;
-    let datisList = document.getElementById('textInput').value || undefined;
+    let metarList = airNavList = skyVectorList = datisList = document.getElementById('textInput').value || undefined;
     let icaoList = [];
     let service = _service || 'error';
 
@@ -142,32 +140,6 @@ let vatMap = () => {
         }
         break;
       case 'skyvector':
-        if (skyVectorList) {
-          icaoList = expandList(skyVectorList);
-          icaoList.forEach(icao => {
-            skyVector(icao);
-          });
-        } else {
-          skyerr.innerHTML = `skyVector empty | ${skyVectorList} | ${service}`;
-        }
-        break;
-      case 'all':
-        if (metarList) {
-          icaoList = expandList(metarList);
-          icaoList.forEach(icao => {
-            metar(icao);
-          });
-        } else {
-          meterr.innerHTML = `metar empty | ${metarList} | ${service}`;
-        }
-        if (airNavList) {
-          icaoList = expandList(airNavList);
-          icaoList.forEach(icao => {
-            airNav(icao);
-          });
-        } else {
-          airerr.innerHTML = `airNav empty | ${airNavList} | ${service}`;
-        }
         if (skyVectorList) {
           icaoList = expandList(skyVectorList);
           icaoList.forEach(icao => {
