@@ -9,6 +9,7 @@ body {
 body {
   display: flex;
   flex-direction: column;
+  font-family: monospace;
 }
 
 .button {
@@ -84,6 +85,7 @@ textarea {
   cursor: text;
   text-decoration: none;
   color: #B0B0B0;
+  font-family: monospace;
   background-color: #000;
   width: 100%;
   height: 150px;

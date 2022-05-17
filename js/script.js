@@ -113,6 +113,7 @@ let vatMap = () => {
   }
 
   let openService = (_service) => {
+    clearAll();
     let meterr = document.getElementById('meterr');
     let airerr = document.getElementById('airerr');
     let skyerr = document.getElementById('skyerr');
