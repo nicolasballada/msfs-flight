@@ -4,7 +4,8 @@ let vatMap = () => {
   }
 
   let simbrief = (url) => {
-    let url = `https://www.simbrief.com/`
+    let url = `https://www.simbrief.com/`;
+
     switch(url){
       case 'new':
         url = `https://www.simbrief.com/system/dispatch.php?newflight=1`;
@@ -13,9 +14,10 @@ let vatMap = () => {
         url = `https://www.simbrief.com/system/briefing.php`;
         break;
       default:
-        url = `https://www.simbrief.com/system/dispatch.php`
+        url = `https://www.simbrief.com/system/dispatch.php`;
         break;
     }
+
     window.open(url, '_blank');
   }
 
