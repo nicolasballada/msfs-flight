@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Flight Tools</title>
+  <meta name='apple-mobile-web-app-capable' content='yes'>
+  <meta name='apple-mobile-web-app-status-bar-style' content='black'>
+  <meta name="theme-color" content="#6b74bd" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#23263e" media="(prefers-color-scheme: dark)">
+  <meta name='apple-mobile-web-app-title' content='VFRMap'>
+  <style>
+    html,
+    body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #23263e;
+    }
+
+    body {
+    display: grid;
+    text-align: center;
+    background-color: #23263e;
+    }
+
+    #top {
+      width: 100%;
+      height: 100%;
+      background-color: rgba(20, 20, 20, 1);
+    }
+
+    .button {
+    background-color: #141414;
+    border: 2px solid #1f283f;
+    color: white;
+    padding: 10px 25px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    margin: 5px 10px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    }
+
+    .button:hover {
+    background-color: #1f283f;
+    color: #789eff;
+    }
+
+    .parent {
+    cursor: default;
+    text-align: center;
+    width: 60%;
+    margin: 0 auto;
+
+    }
+
+    #lgtxt {
+    font-size: 2.0em;
+    color: #ccc;
+    }
+
+    .child {
+    align-items: center;
+    text-align: center;
+    color: #B0B0B0;
+    align-content: space-between;
+    background-color: #00000000;
+    }
+
+    .OpenIn {
+    padding: 1rem;
+    text-align: center;
+    }
+
+    .label {
+    color: #B0B0B0;
+    text-align: left;
+    vertical-align: middle;
+    font-size: 1.4rem;
+    }
+
+    textarea {
+    cursor: text;
+    text-decoration: none;
+    color: #B0B0B0;
+    background-color: #000000;
+    font-family: monospace;
+    background-color: #000;
+    height: 150px;
+    width: 80%;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border: 1px ridge #1f283f;
+    border-radius: 4px;
+    font-size: 16px;
+    resize: both;
+    overflow: auto;
+    }
+
+    .controls {
+      text-align: center;
+      justify-items: flex-start;
+      padding: 20px;
+    }
+
+    #services {
+    margin-bottom: 20px;
+    }
+
+    #scratchpad {
+    height: 200px;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    }
+
+    textarea::placeholder {
+    font-size: 18px;
+    color: #b0b0b0;
+    }
+
+    #airerr,
+    #meterr,
+    #skyerr {
+    color: #FFAA6F;
+    }
+
+    #about {
+    position: relative;
+    top: 5px;
+    right: 20px;
+    text-align: right;
+    }
+
+    #about a {
+    font-size: medium;
+    color: #BCC0E3;
+    text-decoration: none;
+    font-family: monospace;
+    }
+
+    .title {
+      margin-bottom: 5px;
+    }
+
+    .underline {
+      padding-bottom: 5px;
+    }
+
+    .group {
+      justify-content: space-between;
+      padding-bottom: 10px;
+    }
+
+    .pdfView {
+      height: 100%;
+      width: 80%;
+      margin: 0 auto;
+    }
+
+    #pdfObj {
+      height: 1000px;
+      width: 100%;
+    }
+
+    .pdfContainer {
+      display: none;
+      overflow-x: hide;
+      overflow-y: hide;
+      background-color: #141414;
+      height: 100%;
+    }
+
+    #pdfurl {
+      width: 90%;
+      color: #cacaca;
+      background-color: #141414;
+      border: 1px solid #bdbdbd;
+    }
+
+    .pdfControls {
+      background-color: #141414;
+      text-align: right;
+      margin-top: 20px;
+      margin-left: 15px;
+      margin-right: 15px;
+    }
+    
+    /* width */
+    ::-webkit-scrollbar {
+    width: 15px;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+    background: #202020; 
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+    background: #000000; 
+    }
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+    background: #3d3d3d; 
+    }
+  </style>
+  <script type="application/javascript">
+    let initialized = false;
+
+    let initPDF = () => {
+      if(initialized){
+        return true;
+      } else {
+        let viewer = document.getElementById('pdfObj');
+        let pdfContainer = document.getElementById('pdfContainer');
+        let url = document.getElementById('pdfurl').value;
+
+        if(url.includes('pdf')){
+          reloadPDF();
+          initialized = true;
+          return true;
+        } else {
+          pdfContainer.style.display = 'none';
+          return false;
+        }
+      }
+    }
+
+    let closePDF = () => {
+      let viewer = document.getElementById('pdfObj');
+      let pdfContainer = document.getElementById('pdfContainer');
+      let url = document.getElementById('pdfurl').value;
+      let collapseBtn = document.getElementById('collapseOpn');
+
+      pdfContainer.style.display = 'none';
+      viewer.data = '';
+      url = '';
+      pdfContainer.style.display = 'none';
+      collapseBtn.innerHTML = '&#9166;';
+    }
+
+    let reloadPDF = () => {
+      let url = document.getElementById('pdfurl').value;
+      let viewer = document.getElementById('pdfObj');
+      console.log(url);
+      viewer.data = url;
+    }
+
+    let collapsePDF = () => {
+      let init = initPDF();
+      let url = document.getElementById('pdfurl').value;
+      let viewer = document.getElementById('pdfObj');
+      let pdfContainer = document.getElementById('pdfContainer');
+      let collapseBtn = document.getElementById('collapseOpn');
+
+      if(init){
+        if(pdfContainer.style.display === 'none'){
+            pdfContainer.style.display = 'block';
+            collapseBtn.innerHTML = 'Hide';
+          } else {
+          pdfContainer.style.display = 'none';
+          collapseBtn.innerHTML = '&#9166;';
+         }
+      }
+    }
+
+    let vatMap = () => {
+        let url = `https://map.vatsim.net`;
+        window.open(url, '_blank');
+    }
+
+    let simbrief = (locator) => {
+        let url = `https://www.simbrief.com/`;
+
+        switch(locator){
+        case 'new':
+            url = `https://www.simbrief.com/system/dispatch.php?newflight=1`;
+            break;
+        case 'brief':
+            url = `https://www.simbrief.com/system/briefing.php`;
+            break;
+        default:
+            url = `https://www.simbrief.com/system/dispatch.php`;
+            break;
+        }
+
+        window.open(url, '_blank');
+    }
+
+    let skyvect = (type) => {
+        let url = `https://skyvector.com/`;
+        switch(type){
+          case 'hi':
+            url = `https://skyvector.com/?ll=47.3,-122.1&chart=304&zoom=1`;
+            break;
+          case 'lo':
+            url = `https://skyvector.com/?ll=47.3,-122.1&chart=302&zoom=1`;
+            break;
+          case 'vfr':
+            url = `https://skyvector.com/?ll=47.3,-122.1&chart=301&zoom=1`;
+             break;
+          default:
+            url = `https://skyvector.com/`;
+        }
+        window.open(url, '_blank');
+    }
+    
+    let radar = () => {
+        let url = `https://www.aviationweather.gov/radar`;
+        window.open(url, '_blank');
+    }
+
+    let airNav = (_icao) => {
+        let icao = _icao || 'ABCD';
+        let err = document.getElementById('airerr');
+        if (icao !== '' || icao !== undefined || icao !== 'ABCD') {
+        let url = `https://www.airnav.com/airport/${icao}`;
+        window.open(url, '_blank');
+        err.innerHTML = '';
+        } else {
+        err.innerHTML = `No AirNav ${icao}`;
+        console.log(`No AirNav ${icao}`);
+        }
+    }
+
+    let metar = (_icao) => {
+        let icao = _icao || 'ABCD';
+        let err = document.getElementById('meterr');
+        console.log(icao);
+        if (icao !== '' || icao !== undefined || icao !== 'ABCD') {
+        let url = `https://www.aviationweather.gov/adds/metars/index?submit=1&station_ids=${icao}&chk_metars=on&hoursStr=8&std_trans=translated`;
+        window.open(url, '_blank');
+        err.innerHTML = '';
+        } else {
+        err.innerHTML = `No Metar ${icao}`;
+        console.log(`No Metar ${icao}`);
+        }
+    }
+
+    let datis = (_icao) => {
+        let icao = _icao || 'ABCD';
+        let err = document.getElementById('datiserr');
+        console.log(icao);
+        if (icao !== '' || icao !== undefined || icao !== 'ABCD') {
+        let url = `https://datis.clowd.io/${icao}`;
+        window.open(url, '_blank');
+        err.innerHTML = '';
+        } else {
+        err.innerHTML = `No Metar ${icao}`;
+        console.log(`No Metar ${icao}`);
+        }
+    }
+
+    let skyVector = (_icao) => {
+        let icao = _icao || 'ABCD';
+        let err = document.getElementById('skyerr');
+        console.log(icao);
+        if (icao !== '' || icao !== undefined || icao !== 'ABCD') {
+        let url = `https://skyvector.com/airport/${icao}`;
+        window.open(url, '_blank');
+        err.innerHTML = '';
+        } else {
+        err.innerHTML = `No Metar ${icao}`;
+        console.log(`No SkyVector ${icao}`);
+        }
+    }
+
+    let clearAll = () => {
+        let meterr = document.getElementById('meterr');
+        let airerr = document.getElementById('airerr');
+        let skyerr = document.getElementById('skyerr');
+        let text = document.getElementById('textInput');
+
+        airerr.innerHTML = '';
+        skyerr.innerHTML = '';
+        meterr.innerHTML = '';
+        text.innerHTML = '';
+    }
+
+    let expandList = (_icaoText) => {
+        let icaoText = _icaoText || 'ABCDList';
+        let icaoList = [];
+
+        if (icaoText !== 'ABCDList') {
+        icaoList = icaoText.split(' ');
+        return icaoList
+        }
+    }
+
+    let openService = (_service) => {
+        clearAll();
+        let meterr = document.getElementById('meterr');
+        let airerr = document.getElementById('airerr');
+        let skyerr = document.getElementById('skyerr');
+        let datiserr = document.getElementById('datiserr');
+        let metarList = airNavList = skyVectorList = datisList = document.getElementById('textInput').value || undefined;
+        let icaoList = [];
+        let service = _service || 'error';
+
+        switch (service) {
+        case 'metar':
+            if (metarList) {
+            icaoList = expandList(metarList);
+            icaoList.forEach(icao => {
+                metar(icao);
+            });
+            } else {
+            meterr.innerHTML = `metar empty | ${metarList} | ${service}`;
+            }
+            break;
+        case 'datis':
+            if (datisList) {
+            icaoList = expandList(datisList);
+            icaoList.forEach(icao => {
+                datis(icao);
+            });
+            } else {
+            datiserr.innerHTML = `datiserr empty | ${datiserr} | ${service}`;
+            }
+            break;
+        case 'airnav':
+            if (airNavList) {
+            icaoList = expandList(airNavList);
+            icaoList.forEach(icao => {
+                console.log(icao);
+                airNav(icao);
+            });
+            } else {
+            airerr.innerHTML = `airNav empty | ${airNavList} | ${service}`;
+            }
+            break;
+        case 'skyvector':
+            if (skyVectorList) {
+            icaoList = expandList(skyVectorList);
+            icaoList.forEach(icao => {
+                skyVector(icao);
+            });
+            } else {
+            skyerr.innerHTML = `skyVector empty | ${skyVectorList} | ${service}`;
+            }
+            break;
+        default:
+            console.log(`open default ${service} | ${icao}`);
+        }
+    }
+  </script>
+</head>
+
+<body>
+  <div id='top'>
+    <div id='about'>
+      <a id='by' href='https://nicolasballada.github.io/' target='_blank'>@nicolasballada</a>
+      <a id='source' href='https://github.com/nicolasballada/msfs-flight' target='_blank'>src</a>
+    </div>
+    <div class="pdfControls">
+      <button onclick='closePDF(); return false'>&#10006;</button>
+      <input type="text" id='pdfurl' placeholder="PDF URL">
+      <button onclick='reloadPDF(); return false'>&#8635;</button>
+      <button type="button" id='collapseOpn' onclick='collapsePDF(); return false' class="collapsible">&#9166;</button>
+    </div>
+    <div id='msfs-flight-tool'>
+      <!--flightbud -->
+      <div class='parent'>
+        <div class='child'>
+          <h2 class='title'>SimBrief</h2>
+          <div class='underline'>
+            <button class='button' onclick='simbrief("new"); return false'>New</button>
+            <button class='button' onclick='simbrief(); return false'> Dispatch</button>
+            <button class='button' onclick='simbrief("brief"); return false'> Briefing</button>
+          </div>
+            <h2 class='title'>SkyVector</h2>
+            <div class='underline'>
+              <button class='button' onclick='skyvect("lo"); return false;'>IFR Low</button>
+              <button class='button' onclick='skyvect("vfr"); return false;'>VFR</button>
+              <button class='button' onclick='skyvect("hi"); return false;'>IFR High</button>
+          </div>
+        </div>
+        <div class='child'>
+          <div>
+            <button class='button' onclick='radar(); return false'>Weather Radar</button>
+            <button class='button' onclick='vatMap(); return false;'>Vatsim Map</button>
+          </div>
+        </div>
+      </div>
+      <div class='parent'>
+        <div id='services' class='child'>
+          <p id='skyerr'></p>
+          <p id='meterr'></p>
+          <p id='airerr'></p>
+          <p id='datiserr'></p>
+          <textarea id='textInput' name="Input" placeholder=". . ."></textarea>
+          <div class='controls'>
+            <button class='button' onclick='openService("skyvector"); return false;'>SkyVector</button>
+            <button class='button' onclick='openService("metar"); return false;'>METAR</button>
+            <button class='button' onclick='openService("airnav"); return false;'>AirNav</button>
+            <button class='button' onclick='openService("datis"); return false;'>D-ATIS</button>
+          </div>
+        </div>
+        <div class='child'>
+          <textarea id='scratchpad' name="Scratchpad" placeholder="scratchpad"></textarea>
+          <div class='controls'>
+
+          </div>
+        </div>
+      </div>
+      <div class='pdfView'>
+        <div id='pdfContainer' class="pdfContainer">
+          <object id='pdfObj' data='' type="application/pdf"></object>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
