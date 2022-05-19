@@ -265,6 +265,11 @@
       }
     }
 
+    let naviChart = () => {
+        let url = `https://charts.navigraph.com`;
+        window.open(url, '_blank');
+    }
+
     let vatMap = () => {
         let url = `https://map.vatsim.net`;
         window.open(url, '_blank');
@@ -480,6 +485,7 @@
           <div>
             <button class='button' onclick='radar(); return false'>Weather Radar</button>
             <button class='button' onclick='vatMap(); return false;'>Vatsim Map</button>
+            <button class='button' onclick='naviChart(); return false;'>Navigraph Charts</button>
           </div>
         </div>
       </div>
