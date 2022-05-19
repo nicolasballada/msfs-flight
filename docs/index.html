@@ -4,57 +4,84 @@
   <title>Flight Tools</title>
   <meta name='apple-mobile-web-app-capable' content='yes'>
   <meta name='apple-mobile-web-app-status-bar-style' content='black'>
-  <meta name='apple-mobile-web-app-title' content='VFRMap'>
-  <link rel="stylesheet" href="./css/style.css">
-  <script type="application/javascript" src="./js/script.js"></script>
+  <meta name="theme-color" content="#6b74bd" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#23263e" media="(prefers-color-scheme: dark)">
+  <meta name='apple-mobile-web-app-title' content='MSFS Flight Tools'>
+  <link rel="stylesheet" href="./css/styles.css">
+  <script type="application/javascript" src="./js/script.js">
+  </script> 
+<!-- 
+  <style>
+  </style>
+
+  <script type="application/javascript">
+  </script>
+-->
 </head>
 
 <body>
-  <div id='about'>
-    <a id='by' href='https://nicolasballada.github.io/' target='_blank'>@nicolasballada</a>
-    <a id='source' href='https://github.com/nicolasballada/msfs-flight' target='_blank'>src</a>
-  </div>
-  <div id='flightbud'>
-    <!--flightbud -->
-    <div class='topParent' id='topBar'>
-        <div class='topChild' id='topControls'>
-            <!--<button class='button' onclick='openService("all"); return false;'>Open</button>
-            <button class='button' onclick='clearAll(); return false;'>Clear</button> -->
-            <div>
-              <button class='button' onclick='simbrief("new"); return false'>New</button>
-              <button class='button' onclick='simbrief(); return false'> Simlink</button>
-              <button class='button' onclick='simbrief("brief"); return false'> Brief</button>
-            </div>
-            <div>
-              <button class='button' onclick='skyvect(); return false;'>Open SkyVector</button>
-            </div>
-            <div>
-              <button class='button' onclick='vatMap(); return false;'>Open Vatsim Map</button>
-            </div>
-            <div>
-              <button class='button' onclick='radar(); return false'>Open Weather Radar</button>
-            </div>
-          </div>
+  <div id='top'>
+    <div id='about'>
+      <a id='by' href='https://nicolasballada.github.io/' target='_blank'>@nicolasballada</a>
+      <a id='source' href='https://github.com/nicolasballada/msfs-flight' target='_blank'>src</a>
     </div>
-    <div class='parent'>
-      <div id='services' class='child'>
-        <p id='skyerr'></p>
-        <p id='meterr'></p>
-        <p id='airerr'></p>
-        <p id='datiserr'></p>
-        <div class='innerparent'>
-          <textarea id='textInput' name="Input" placeholder="KJFK KCVO KSEA . . ."></textarea>
+    <div class="pdfControls">
+      <button onclick='closePDF(); return false'>&#10006;</button>
+      <input type="text" id='pdfurl' placeholder="PDF URL">
+      <button onclick='reloadPDF(); return false'>&#8635;</button>
+      <button type="button" id='collapseOpn' onclick='collapsePDF(); return false' class="collapsible">&#9166;</button>
+    </div>
+    <div id='msfs-flight-tool'>
+      <!--flightbud -->
+      <div class='parent'>
+        <div class='child'>
+          <h2 class='title'>SimBrief</h2>
+          <div class='underline'>
+            <button class='button' onclick='simbrief("new"); return false'>New</button>
+            <button class='button' onclick='simbrief(); return false'> Dispatch</button>
+            <button class='button' onclick='simbrief("brief"); return false'> Briefing</button>
+          </div>
+            <h2 class='title'>SkyVector</h2>
+            <div class='underline'>
+              <button class='button' onclick='skyvect("lo"); return false;'>IFR Low</button>
+              <button class='button' onclick='skyvect("vfr"); return false;'>VFR</button>
+              <button class='button' onclick='skyvect("hi"); return false;'>IFR High</button>
+          </div>
         </div>
-        <div class='controls'>
-          <button class='button' onclick='openService("skyvector"); return false;'>SkyVector</button>
-          <button class='button' onclick='openService("metar"); return false;'>METAR</button>
-          <button class='button' onclick='openService("airnav"); return false;'>AirNav</button>
-          <button class='button' onclick='openService("datis"); return false;'>D-ATIS</button>
+        <div class='child'>
+          <div>
+            <button class='button' onclick='radar(); return false'>Weather Radar</button>
+            <button class='button' onclick='vatMap(); return false;'>Vatsim Map</button>
+          </div>
         </div>
       </div>
-      <textarea id='scratchpad' name="Scratchpad" placeholder="scratchpad"></textarea>
+      <div class='parent'>
+        <div id='services' class='child'>
+          <p id='skyerr'></p>
+          <p id='meterr'></p>
+          <p id='airerr'></p>
+          <p id='datiserr'></p>
+          <textarea id='textInput' name="Input" placeholder=". . ."></textarea>
+          <div class='controls'>
+            <button class='button' onclick='openService("skyvector"); return false;'>SkyVector</button>
+            <button class='button' onclick='openService("metar"); return false;'>METAR</button>
+            <button class='button' onclick='openService("airnav"); return false;'>AirNav</button>
+            <button class='button' onclick='openService("datis"); return false;'>D-ATIS</button>
+          </div>
+        </div>
+        <div class='child'>
+          <textarea id='scratchpad' name="Scratchpad" placeholder="scratchpad"></textarea>
+          <div class='controls'>
+
+          </div>
+        </div>
+      </div>
+      <div class='pdfView'>
+        <div id='pdfContainer' class="pdfContainer">
+          <object id='pdfObj' data='' type="application/pdf"></object>
+        </div>
+      </div>
     </div>
   </div>
 </body>
-
 </html>
