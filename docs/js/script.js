@@ -57,6 +57,11 @@ let collapsePDF = () => {
   }
 }
 
+let naviChart = () => {
+  let url = `https://charts.navigraph.com`;
+  window.open(url, '_blank');
+}
+
 let vatMap = () => {
     let url = `https://map.vatsim.net`;
     window.open(url, '_blank');
