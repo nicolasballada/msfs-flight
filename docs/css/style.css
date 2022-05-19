@@ -1,0 +1,196 @@
+html,
+body {
+height: 100%;
+margin: 0;
+padding: 0;
+background-color: #23263e;
+}
+
+body {
+display: grid;
+text-align: center;
+background-color: #23263e;
+}
+
+#top {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(20, 20, 20, 1);
+}
+
+.button {
+background-color: #141414;
+border: 2px solid #1f283f;
+color: white;
+padding: 10px 25px;
+text-align: center;
+text-decoration: none;
+font-size: 16px;
+margin: 5px 10px;
+transition-duration: 0.4s;
+cursor: pointer;
+}
+
+.button:hover {
+background-color: #1f283f;
+color: #789eff;
+}
+
+.parent {
+cursor: default;
+text-align: center;
+width: 60%;
+margin: 0 auto;
+
+}
+
+#lgtxt {
+font-size: 2.0em;
+color: #ccc;
+}
+
+.child {
+align-items: center;
+text-align: center;
+color: #B0B0B0;
+align-content: space-between;
+background-color: #00000000;
+}
+
+.OpenIn {
+padding: 1rem;
+text-align: center;
+}
+
+.label {
+color: #B0B0B0;
+text-align: left;
+vertical-align: middle;
+font-size: 1.4rem;
+}
+
+textarea {
+cursor: text;
+text-decoration: none;
+color: #B0B0B0;
+background-color: #000000;
+font-family: monospace;
+background-color: #000;
+height: 150px;
+width: 80%;
+padding: 12px 20px;
+box-sizing: border-box;
+border: 1px ridge #1f283f;
+border-radius: 4px;
+font-size: 16px;
+resize: both;
+overflow: auto;
+}
+
+.controls {
+  text-align: center;
+  justify-items: flex-start;
+  padding: 20px;
+}
+
+#services {
+margin-bottom: 20px;
+}
+
+#scratchpad {
+height: 200px;
+margin-bottom: 10px;
+padding-bottom: 10px;
+}
+
+textarea::placeholder {
+font-size: 18px;
+color: #b0b0b0;
+}
+
+#airerr,
+#meterr,
+#skyerr {
+color: #FFAA6F;
+}
+
+#about {
+position: relative;
+top: 5px;
+right: 20px;
+text-align: right;
+}
+
+#about a {
+font-size: medium;
+color: #BCC0E3;
+text-decoration: none;
+font-family: monospace;
+}
+
+.title {
+  margin-bottom: 5px;
+}
+
+.underline {
+  padding-bottom: 5px;
+}
+
+.group {
+  justify-content: space-between;
+  padding-bottom: 10px;
+}
+
+.pdfView {
+  height: 100%;
+  width: 80%;
+  margin: 0 auto;
+}
+
+#pdfObj {
+  height: 1000px;
+  width: 100%;
+}
+
+.pdfContainer {
+  display: none;
+  overflow-x: hide;
+  overflow-y: hide;
+  background-color: #141414;
+  height: 100%;
+}
+
+#pdfurl {
+  width: 90%;
+  color: #cacaca;
+  background-color: #141414;
+  border: 1px solid #bdbdbd;
+}
+
+.pdfControls {
+  background-color: #141414;
+  text-align: right;
+  margin-top: 20px;
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
+/* width */
+::-webkit-scrollbar {
+width: 15px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+background: #202020; 
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+background: #000000; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+background: #3d3d3d; 
+}
