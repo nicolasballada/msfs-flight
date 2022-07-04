@@ -76,6 +76,8 @@ let vfrMap = () => {
     } else {
       map.style.display = 'none';
     }
+  } else {
+    map.style.display = 'none';
   }
 }
 
