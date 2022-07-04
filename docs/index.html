@@ -32,6 +32,8 @@
       <button type="button" id='collapseOpn' onclick='collapsePDF(); return false' class="collapsible">&#9166;</button>
     </div>
     <div id='msfs-flight-tool'>
+
+      <iframe src="http://vfrmap.com" id='vfrmap' title="VFRMap" width="98%" height="900px"></iframe>
       <!--flightbud -->
       <div class='parent'>
         <div class='child'>
@@ -45,6 +47,7 @@
             <div class='underline'>
               <button class='button' onclick='skyvect("lo"); return false;'>IFR Low</button>
               <button class='button' onclick='skyvect("vfr"); return false;'>VFR</button>
+              <button class='button' onclick='vfrMap(); return false;'>VFR Map Embed</button>
               <button class='button' onclick='skyvect("hi"); return false;'>IFR High</button>
           </div>
         </div>

@@ -67,6 +67,18 @@ let vatMap = () => {
     window.open(url, '_blank');
 }
 
+let vfrMap = () => {
+  let map = document.getElementById('vfrmap');
+
+  if (map.style.display) {
+    if(map.style.display == 'none'){
+      map.style.display = 'block';
+    } else {
+      map.style.display = 'none';
+    }
+  }
+}
+
 let simbrief = (locator) => {
     let url = `https://www.simbrief.com/`;
 
