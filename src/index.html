@@ -466,6 +466,7 @@ let openService = (_service) => {
 }
   </script>
 </head>
+
 <body>
   <div id='top'>
     <div id='about'>
@@ -479,8 +480,6 @@ let openService = (_service) => {
       <button type="button" id='collapseOpn' onclick='collapsePDF(); return false' class="collapsible">&#9166;</button>
     </div>
     <div id='msfs-flight-tool'>
-
-      <iframe src="https://vfrmap.com" id='vfrmap' title="VFRMap" width="98%" height="900px"></iframe>
       <!--flightbud -->
       <div class='parent'>
         <div class='child'>
@@ -520,6 +519,10 @@ let openService = (_service) => {
             <button class='button' onclick='openService("datis"); return false;'>D-ATIS</button>
           </div>
         </div>
+
+
+      <iframe src="https://vfrmap.com" style="display:none;" id='vfrmap' title="VFRMap" width="98%" height="900px"></iframe>
+
         <div class='child'>
           <textarea id='scratchpad' name="Scratchpad" placeholder="scratchpad"></textarea>
           <div class='controls'>
