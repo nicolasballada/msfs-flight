@@ -147,6 +147,10 @@ font-family: monospace;
   margin: 0 auto;
 }
 
+iframe {
+  margin-bottom: 10px;
+}
+
 #pdfObj {
   height: 1000px;
   width: 100%;
